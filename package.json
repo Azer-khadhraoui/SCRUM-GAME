@@ -2,11 +2,9 @@
   "name": "my-app",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://aziz-benlamine.github.io/SCRUM-GAME",
+  "homepage": "https://azer-khadhraoui.github.io/SCRUM-GAME",
   "type": "module",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",

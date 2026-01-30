@@ -1,0 +1,50 @@
+name: Build site for GitHub Pages (main/root)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-main-root
+  cancel-in-progress: true
+
+jobs:
+  build-and-commit:
+    # Evite la boucle quand le workflow push un commit
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Commit build output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # On commit uniquement les fichiers nécessaires à GitHub Pages
+          git add -A index.html 404.html assets
+
+          if git diff --cached --quiet; then
+            echo "No build changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore(pages): build site [skip ci]"
+          git push

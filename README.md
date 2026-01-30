@@ -1,5 +1,24 @@
 # React + TypeScript + Vite
 
+## Déploiement GitHub Pages (main / root)
+
+Ce projet est configuré pour être servi par GitHub Pages depuis : **Deploy from a branch → `main` → `/ (root)`**.
+
+- Le code source (dev) est dans `src/` (Vite `root: src`).
+- Le build de prod est généré dans la racine du repo (`index.html` + `assets/`).
+
+### Déploiement automatique
+
+Un workflow GitHub Actions build le projet et commit automatiquement `index.html` et `assets/` sur `main`.
+
+1. GitHub → **Settings** → **Pages**
+2. **Source** : **Deploy from a branch**
+3. Branche : `main` / dossier : `/ (root)`
+
+Après chaque push sur `main`, attends que le workflow finisse (onglet **Actions**) puis recharge l’URL Pages :
+
+- https://azer-khadhraoui.github.io/SCRUM-GAME/
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
